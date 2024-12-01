@@ -1,9 +1,14 @@
 <?php
 
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
+declare(strict_types=1);
 
-Route::post('/login', [HomeController::class, 'login']);
-Route::post('/register', [HomeController::class, 'register']);
-Route::post('/logout', [HomeController::class, 'logout'])->middleware('auth:sanctum');
+use App\Http\Controllers\Api\AuthController;
+use Illuminate\Support\Facades\Route;
+
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+});
+

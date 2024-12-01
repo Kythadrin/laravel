@@ -7,6 +7,8 @@ services:
       - ${VITE_PORT:-5174}:${VITE_PORT:-5174}
     volumes:
       - ./:/var/www/laravel
+    environment:
+      - PHP_IDE_CONFIG=serverName=Docker
     depends_on:
       - postgres
     networks:
