@@ -1,25 +1,18 @@
-import '../css/app.css';
-import './bootstrap';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import {App} from "@/App.tsx";
 
-import { createInertiaApp } from '@inertiajs/react';
-import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
-import { createRoot } from 'react-dom/client';
+import "../css/app.css";
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+const rootElement: HTMLElement|null = document.getElementById('root');
 
-createInertiaApp({
-    title: (title) => `${title} - ${appName}`,
-    resolve: (name) =>
-        resolvePageComponent(
-            `./Pages/${name}.tsx`,
-            import.meta.glob('./Pages/**/*.tsx'),
-        ),
-    setup({el, App, props}) {
-        const root = createRoot(el);
+if (rootElement === null) {
+    throw Error("Element with id root not found");
+}
 
-        root.render(<App {...props} />);
-    },
-    progress: {
-        color: '#4B5563',
-    },
-}).then();
+const root = ReactDOM.createRoot(rootElement);
+root.render(
+    <React.StrictMode>
+        <App />
+    </React.StrictMode>
+);
