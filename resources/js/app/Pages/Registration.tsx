@@ -3,16 +3,18 @@ import { Button, TextField, Grid2, Box, Typography, Container } from '@mui/mater
 import { useForm } from 'react-hook-form';
 
 interface IFormInput {
+    username: string;
     email: string;
     password: string;
+    confirmPassword: string;
 }
 
-export const Login: React.FC = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>();
+export const Registration: React.FC = () => {
+    const { register, handleSubmit, getValues, formState: { errors } } = useForm<IFormInput>();
 
     const onSubmit = (data: IFormInput) => {
         console.log(data);
-        // Add your login logic here
+        // Add your registration logic here
     };
 
     return (
@@ -36,7 +38,7 @@ export const Login: React.FC = () => {
                 }}
             >
                 <Typography variant="body1" sx={{ color: 'white', marginBottom: 3 }}>
-                    Log in
+                    Create an Account
                 </Typography>
 
                 <Box
@@ -53,6 +55,17 @@ export const Login: React.FC = () => {
                         boxShadow: 3,
                     }}
                 >
+                    <TextField
+                        label="Username"
+                        variant="outlined"
+                        fullWidth
+                        {...register('username', { required: 'Username is required' })}
+                        error={!!errors.username}
+                        helperText={errors.username?.message}
+                        sx={{
+                            borderRadius: 2,
+                        }}
+                    />
                     <TextField
                         label="Email Address"
                         variant="outlined"
@@ -76,6 +89,22 @@ export const Login: React.FC = () => {
                             borderRadius: 2,
                         }}
                     />
+                    <TextField
+                        label="Confirm Password"
+                        variant="outlined"
+                        type="password"
+                        fullWidth
+                        {...register('confirmPassword', {
+                            required: 'Confirm Password is required',
+                            validate: (value) =>
+                                value === getValues('password') || 'Passwords do not match',
+                        })}
+                        error={!!errors.confirmPassword}
+                        helperText={errors.confirmPassword?.message}
+                        sx={{
+                            borderRadius: 2,
+                        }}
+                    />
                     <Button
                         type="submit"
                         variant="contained"
@@ -90,19 +119,14 @@ export const Login: React.FC = () => {
                             },
                         }}
                     >
-                        Login
+                        Register
                     </Button>
                 </Box>
 
                 <Grid2 container justifyContent="space-between" sx={{ mt: 2, width: '100%', justifyContent: 'space-evenly' }}>
                     <Grid2>
-                        <Button variant="text" color="primary" href="/registration" sx={{ color: 'white', fontSize: 12 }}>
-                            Register
-                        </Button>
-                    </Grid2>
-                    <Grid2>
-                        <Button variant="text" color="primary" href="/password-recovery" sx={{ color: 'white', fontSize: 12 }}>
-                            Forgot Password?
+                        <Button variant="text" color="primary" href="/login" sx={{ color: 'white', fontSize: 12 }}>
+                            Already have an account? Log in
                         </Button>
                     </Grid2>
                 </Grid2>
