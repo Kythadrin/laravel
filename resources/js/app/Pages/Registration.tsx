@@ -125,7 +125,7 @@ export const Registration: React.FC = () => {
 
                 <Grid2 container justifyContent="space-between" sx={{ mt: 2, width: '100%', justifyContent: 'space-evenly' }}>
                     <Grid2>
-                        <Button variant="text" color="primary" href="/login" sx={{ color: 'white', fontSize: 12 }}>
+                        <Button variant="text" color="primary" href="/" sx={{ color: 'white', fontSize: 12 }}>
                             Already have an account? Log in
                         </Button>
                     </Grid2>
